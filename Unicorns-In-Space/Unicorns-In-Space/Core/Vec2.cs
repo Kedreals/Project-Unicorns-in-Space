@@ -8,8 +8,8 @@ namespace Unicorns_In_Space
 {
     struct Vec2
     {
-        float X;
-        float Y;
+        public float X;
+        public float Y;
 
         public float Length { get { return (float)Math.Sqrt(X * X + Y * Y); } }
 
