@@ -46,7 +46,6 @@ namespace Unicorns_In_Space
             }
         }
 
-
         public void Draw(RenderWindow window)
         {
             foreach (GameObject gObj in gameObjectList)

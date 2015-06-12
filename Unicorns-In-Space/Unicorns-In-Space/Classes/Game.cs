@@ -11,6 +11,11 @@ namespace Unicorns_In_Space
     {
         public static uint WindowWidth = 1280;
         public static uint WindowHeight = 720;
+        
+        EnumGameStates currentGameState = EnumGameStates.inGame;
+        EnumGameStates prevGameState;
+
+        GameStates gameState;
 
         public Game() : base(WindowWidth, WindowHeight, "Project: Unicorns in Space") { }
 
@@ -21,6 +26,33 @@ namespace Unicorns_In_Space
         public override void Update(GameTime gameTime)
         {
             gameTime.Update();
+
+            if(currentGameState != prevGameState)
+            {
+                HandleGameStates();
+            }
+
+            currentGameState = gameState.Update(gameTime);
+        }
+
+        public void HandleGameStates()
+        {
+            switch(currentGameState)
+            {
+                case EnumGameStates.none:
+                    window.Close();
+                    break;
+                case EnumGameStates.mainMenu:
+                    gameState = new MainMenu();
+                    break;
+                case EnumGameStates.inGame:
+                    gameState = new InGame();
+                    break;
+            }
+
+            gameState.LoadContent();
+            gameState.Initialize();
+            prevGameState = currentGameState;
         }
     }
 }

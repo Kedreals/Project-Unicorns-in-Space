@@ -10,10 +10,12 @@ namespace Unicorns_In_Space
     abstract class GameObject
     {
         public Sprite Sprite { get; set; }
-        protected Texture Texture { get; }
+        protected Texture Texture { get; set; }
         public Vec2 Position { get; set; }
         public HitBox HitBox { get; protected set; }
         public bool IsAlive { get; protected set; }
+        public float MovementSpeed { get; set; }
+        public Vec2 Movement { get; set; }
 
         public GameObject(Vec2 spawnPos)
         {
@@ -22,6 +24,12 @@ namespace Unicorns_In_Space
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
             HitBox = new HitBox(spawnPos, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
+        }
+
+        public void Move(Vec2 direction)
+        {
+            direction.Normalize();
+            Position += MovementSpeed * direction;
         }
 
         public void Kill()
