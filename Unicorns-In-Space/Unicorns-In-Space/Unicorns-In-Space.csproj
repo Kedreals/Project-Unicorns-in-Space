@@ -59,6 +59,7 @@
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
     <Compile Include="Classes\GameStatesFolder\MainMenu.cs" />
     <Compile Include="Classes\GameTime.cs" />
+    <Compile Include="Core\Vec2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
