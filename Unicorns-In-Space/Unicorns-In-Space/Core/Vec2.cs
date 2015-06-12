@@ -52,6 +52,7 @@ namespace Unicorns_In_Space
         public static Vec2 operator *(Vec2 v, float t) { return new Vec2(t * v.X, t * v.Y); }
         public static Vec2 operator /(Vec2 v, float t) { return new Vec2(v.X / t, v.Y / t); }
         public static bool operator ==(Vec2 v1, Vec2 v2) { return v1.X == v2.X && v1.Y == v2.Y; }
+        public static bool operator !=(Vec2 v1, Vec2 v2) { return !(v1.X == v2.X && v1.Y == v2.Y); }
 
         public void Normalize()
         {

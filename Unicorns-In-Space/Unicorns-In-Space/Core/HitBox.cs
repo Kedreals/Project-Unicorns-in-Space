@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFML.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,5 +39,7 @@ namespace Unicorns_In_Space
         {
             return (Position.Y <= h.Position.Y) ? (this) : (h);
         }
+
+        public void Update(Sprite sprite) { Position = sprite.Position; }
     }
 }
