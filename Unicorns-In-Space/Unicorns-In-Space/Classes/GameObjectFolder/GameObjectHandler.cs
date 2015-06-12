@@ -12,5 +12,8 @@ namespace Unicorns_In_Space.Classes.GameObjectFolder
     {
         public Sprite sprite { get; set; }
         public Vector2f position { get; set; }
+        protected bool _isAlive = true;
+        public bool isAlive { get { return _isAlive; } set { _isAlive = value; } }
+
     }
 }
