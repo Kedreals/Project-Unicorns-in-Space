@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Unicorns_In_Space.Classes.GameObjectFolder
+namespace Unicorns_In_Space
 {
     class GameObjectHandler
     {
@@ -28,20 +28,19 @@ namespace Unicorns_In_Space.Classes.GameObjectFolder
                 gObj.Kill();
         }
 
-        public void Update(GameTime gameTIme)
+        public void Update(GameTime gameTime)
         {
             gameObjectList.Sort();
 
             for(int i =0; i< gameObjectList.Count; ++i)
             {
-                if(!gameObjectList[i].isAlive)
+                if(!gameObjectList[i].IsAlive)
                 {
                     gameObjectList.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    gameObjectList[i].indexObjectList = i;
                     gameObjectList[i].Update(gameTime);
                 }
             }
