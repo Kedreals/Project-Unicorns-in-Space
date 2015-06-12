@@ -21,12 +21,11 @@ namespace Unicorns_In_Space
 
         public override void Draw(RenderWindow win)
         {
+            gameState.Draw(win);
         }
 
         public override void Update(GameTime gameTime)
         {
-            gameTime.Update();
-
             if(currentGameState != prevGameState)
             {
                 HandleGameStates();
@@ -48,6 +47,8 @@ namespace Unicorns_In_Space
                 case EnumGameStates.inGame:
                     gameState = new InGame();
                     break;
+                default:
+                    throw new NotFiniteNumberException();
             }
 
             gameState.LoadContent();

@@ -30,6 +30,7 @@ namespace Unicorns_In_Space
 
         public void Draw(RenderWindow window)
         {
+            
             player.Draw(window);
         }
     }

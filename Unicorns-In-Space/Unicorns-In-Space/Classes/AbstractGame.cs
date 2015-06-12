@@ -28,9 +28,10 @@ namespace Unicorns_In_Space
             {
                 window.Clear(new Color(100, 156, 239));
                 window.DispatchEvents();
-
+                gameTime.Update();
                 Update(gameTime);
                 Draw(window);
+                
 
                 window.Display();
             }
