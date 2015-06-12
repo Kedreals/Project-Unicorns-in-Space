@@ -10,6 +10,7 @@ namespace Unicorns_In_Space
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Fucking awesome game of doom is starting right NOW ");
             Game game = new Game();
             game.Run();
         }
