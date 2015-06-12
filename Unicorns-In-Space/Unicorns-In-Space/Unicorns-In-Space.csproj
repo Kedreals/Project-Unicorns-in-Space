@@ -61,6 +61,7 @@
     <Compile Include="Classes\GameTime.cs" />
     <Compile Include="Core\HitBox.cs" />
     <Compile Include="Core\Vec2.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
