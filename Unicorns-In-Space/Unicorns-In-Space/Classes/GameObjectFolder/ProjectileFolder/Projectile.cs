@@ -9,8 +9,10 @@ namespace Unicorns_In_Space
 {
     class Projectile : GameObject
     {
-        public Projectile(Vec2 spawnPos) : base(spawnPos)
+        public Player owner { get; protected set; }
+        public Projectile(Vec2 spawnPos, Player p) : base(spawnPos)
         {
+            owner = p;
             MovementSpeed = 3f;
             Texture = new Texture("Textures/Projectile.png");
             Sprite = new Sprite(Texture);
