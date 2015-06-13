@@ -10,9 +10,11 @@ namespace Unicorns_In_Space
     class InGame : GameStates
     {
         Player playerOne;
+        Player playerTwo;
         ProjectileHandler projectileHandler;
         EnemyHandler enemyHandler;
         Random r = new Random();
+        public static int PlayerNumbers { get; set; }
 
         Texture FlashyTitelTexture = new Texture("Textures/TitelTexture.png");
 
@@ -53,7 +55,13 @@ namespace Unicorns_In_Space
         
         public void LoadContent()
         {
-            playerOne = new Player(new Vec2(10, 10), 0);
+            if (PlayerNumbers == 1)
+                playerOne = new Player(new Vec2(10, 10), 0);
+            else if (PlayerNumbers == 2)
+            {
+                playerOne = new Player(new Vec2(10, 10), 0);
+                playerTwo = new Player(new Vec2(10, 900), 1);
+            }
             projectileHandler = new ProjectileHandler();
             enemyHandler = new EnemyHandler();
         }
@@ -61,6 +69,9 @@ namespace Unicorns_In_Space
         public EnumGameStates Update(GameTime gameTime)
         {
             playerOne.Update(gameTime);
+            if (playerTwo != null)
+                playerTwo.Update(gameTime);
+
             projectileHandler.Update(gameTime);
             enemyHandler.Update(gameTime);
 
@@ -104,6 +115,8 @@ namespace Unicorns_In_Space
             window.Draw(Background, fade);
 
             playerOne.Draw(window);
+            if (playerTwo != null)
+                playerTwo.Draw(window);
             projectileHandler.Draw(window);
             enemyHandler.Draw(window);
             

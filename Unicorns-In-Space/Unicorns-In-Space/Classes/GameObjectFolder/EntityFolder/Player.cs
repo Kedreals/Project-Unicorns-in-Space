@@ -11,7 +11,7 @@ namespace Unicorns_In_Space
     class Player : GameObject
     {
         private uint joyStickNumber;
-        private bool buttonPressed = false;
+        public static bool buttonPressed = false;
 
         public Player(Vec2 spawnPos, uint _joyStickNumber) : base(spawnPos) {
             MovementSpeed = 2f;
@@ -30,8 +30,7 @@ namespace Unicorns_In_Space
         public void Control()
         {
             float epsylon = 15;
-            Joystick.Update();
-
+           
             float x, y;
 
             if (Math.Abs(Joystick.GetAxisPosition(joyStickNumber, Joystick.Axis.X)) > epsylon)
