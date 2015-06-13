@@ -12,7 +12,7 @@ namespace Unicorns_In_Space
         public static uint WindowWidth = 1280;
         public static uint WindowHeight = 720;
         
-        EnumGameStates currentGameState = EnumGameStates.mainMenu;
+        EnumGameStates currentGameState = EnumGameStates.inGame;
         EnumGameStates prevGameState;
 
         GameStates gameState;

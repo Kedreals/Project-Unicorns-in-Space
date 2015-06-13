@@ -25,9 +25,25 @@ namespace Unicorns_In_Space
 
         public void Move(Vec2 direction)
         {
-            if (direction != Vec2.ZERO)
-                direction.Normalize();
-            Position += MovementSpeed * direction;
+            Vec2 nextPos = Position + MovementSpeed * direction;
+            Vec2 help;
+
+            if (nextPos.X >= Game.WindowWidth - Sprite.Texture.Size.X || nextPos.X <= 0)
+                help.X = Position.X;
+            else
+                help.X = nextPos.X;
+
+            if (nextPos.Y >= Game.WindowHeight - Sprite.Texture.Size.Y || nextPos.Y <= 0)
+                help.Y = Position.Y;
+            else
+            {
+                help.Y = nextPos.Y;
+            }
+
+            Console.WriteLine(help);
+            Console.WriteLine(Position);
+            Position = help;
+            Console.WriteLine(Position);
         }
 
         public void Kill()
