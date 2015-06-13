@@ -10,6 +10,7 @@ namespace Unicorns_In_Space
 {
     class Player : GameObject
     {
+        public Int64 HighScore = 0;
         private uint joyStickNumber;
         public bool buttonPressed = true;
 
@@ -24,7 +25,7 @@ namespace Unicorns_In_Space
 
         public void Shoot()
         {
-            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2)));
+            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this));
         }
 
         public void Control()

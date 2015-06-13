@@ -30,6 +30,7 @@ namespace Unicorns_In_Space
                 {
                     IsAlive = false;
                     proj.IsAlive = false;
+                    proj.owner.HighScore += 10;
                 }
             }
         }

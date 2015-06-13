@@ -30,6 +30,9 @@ namespace Unicorns_In_Space
 
         RenderTexture renderTexture;
 
+        Text HighscorePlayer1;
+        Text HighscorePlayer2;
+
         bool newPointsSet = true;
 
         public void Initialize()
@@ -51,8 +54,15 @@ namespace Unicorns_In_Space
 
             point = new CircleShape(2);
             point.FillColor = Color.White;
+
+            HighscorePlayer1 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
+            HighscorePlayer1.Color = Color.Cyan;
+            HighscorePlayer1.Position = new Vec2(10, 10);
+            HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
+            HighscorePlayer2.Color = Color.Magenta;
+            HighscorePlayer2.Position = new Vec2(10, 20);
         }
-        
+
         public void LoadContent()
         {
             if (PlayerNumbers == 1)
@@ -70,6 +80,11 @@ namespace Unicorns_In_Space
 
         public EnumGameStates Update(GameTime gameTime)
         {
+            HighscorePlayer1.DisplayedString = playerOne.HighScore.ToString();
+
+            if (PlayerNumbers > 1)
+                HighscorePlayer2.DisplayedString = playerTwo.HighScore.ToString();
+
             playerOne.Update(gameTime);
             if (playerTwo != null)
                 playerTwo.Update(gameTime);
@@ -88,7 +103,7 @@ namespace Unicorns_In_Space
 
             if (EnemyHandler.enemyList.Count < help)
                 for (int i = 0; i < help; ++i)
-                    enemyHandler.Add(new Enemy(new Vec2(Game.WindowWidth + 5, (float)r.NextDouble() * Game.WindowHeight)));
+                    enemyHandler.Add(new Enemy(new Vec2(Game.WindowWidth + 5, (float)r.NextDouble() * (Game.WindowHeight - 55))));
 
             if(playerTwo != null)
             {
@@ -129,7 +144,9 @@ namespace Unicorns_In_Space
                 playerTwo.Draw(window);
             projectileHandler.Draw(window);
             enemyHandler.Draw(window);
-            
+            window.Draw(HighscorePlayer1);
+            if (PlayerNumbers > 1)
+                window.Draw(HighscorePlayer2);
         }
     }
 }
