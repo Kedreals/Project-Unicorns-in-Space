@@ -16,6 +16,7 @@ namespace Unicorns_In_Space
         public AbstractGame(uint width, uint heigth, string titel)
         {
             window = new RenderWindow(new VideoMode(width, heigth), titel);
+            window.Position = new Vector2i(0, 0);
             window.Closed += (sender, eventargs) => { ((RenderWindow)sender).Close(); };
 
             gameTime = new GameTime();
@@ -26,7 +27,7 @@ namespace Unicorns_In_Space
             gameTime.Start();
             while (window.IsOpen())
             {
-                window.Clear(new Color(100, 156, 239));
+                window.Clear(Color.Black);
                 window.DispatchEvents();
                 gameTime.Update();
                 Update(gameTime);
