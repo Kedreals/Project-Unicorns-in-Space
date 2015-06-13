@@ -21,19 +21,37 @@ namespace Unicorns_In_Space
 
         public void Control()
         {
-            float x = Joystick.GetAxisPosition(1, Joystick.Axis.PovX);
-            Console.WriteLine("X: " + x);
-            float y = Joystick.GetAxisPosition(1, Joystick.Axis.PovY);
-            Console.WriteLine("Y: " + y);
+            float epsylon = 15;
+            Joystick.Update();
 
-            Movement = new Vec2(x, y);
+            float x, y;
+
+            if (Math.Abs(Joystick.GetAxisPosition(0, Joystick.Axis.X)) > epsylon)
+                x = Joystick.GetAxisPosition(0, Joystick.Axis.X);
+            else
+                x = 0;
+
+            if (Math.Abs(Joystick.GetAxisPosition(0, Joystick.Axis.Y)) > epsylon)
+                y = Joystick.GetAxisPosition(0, Joystick.Axis.Y);
+            else
+                y = 0;
+
+            Vec2 move = new Vec2(x, y);
+
+            if (move.Length < epsylon)
+                move = Vec2.ZERO;
+
+            if (move != Vec2.ZERO)
+                move = move.GetNormalized();
+
+            Movement = move;
         }
 
         public override void Update(GameTime gameTime) 
         {
             Control();
             Move(Movement);
-            base.Update(gameTime); 
+            base.Update(gameTime);
         }
     }
 }
