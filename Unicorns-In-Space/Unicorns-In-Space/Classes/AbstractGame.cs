@@ -34,7 +34,6 @@ namespace Unicorns_In_Space
                 Joystick.Update();
                 Draw(window);
                 
-
                 window.Display();
             }
         }
