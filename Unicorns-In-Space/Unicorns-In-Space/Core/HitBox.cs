@@ -31,7 +31,6 @@ namespace Unicorns_In_Space
 
             float xCheck = Math.Abs(v.X) - CompareX(h).Size.X;
             float yCheck = Math.Abs(v.Y) - CompareY(h).Size.Y;
-
             return xCheck <= 0 && yCheck <= 0;
         }
 
@@ -45,7 +44,7 @@ namespace Unicorns_In_Space
             return (Position.Y <= h.Position.Y) ? (this) : (h);
         }
 
-        public void Update(Sprite sprite) { Position = sprite.Position; }
+        public void Update(Sprite sprite) { Position = sprite.Position; r.Position = Position; }
 
         public void Debug(RenderWindow win)
         {

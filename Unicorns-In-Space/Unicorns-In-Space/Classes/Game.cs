@@ -9,8 +9,8 @@ namespace Unicorns_In_Space
 {
     class Game : AbstractGame
     {
-        public static uint WindowWidth = 1280;
-        public static uint WindowHeight = 720;
+        public static uint WindowWidth = 1900;
+        public static uint WindowHeight = 1000;
         
         EnumGameStates currentGameState = EnumGameStates.mainMenu;
         EnumGameStates prevGameState;

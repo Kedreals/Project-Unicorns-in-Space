@@ -51,10 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
-    <Compile Include="Classes\GameObjectFolder\EntityFolder\Entity.cs" />
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\GameObjectFolder\GameObject.cs" />
-    <Compile Include="Classes\GameObjectFolder\GameObjectHandler.cs" />
     <Compile Include="Classes\GameStates.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
     <Compile Include="Classes\GameStatesFolder\MainMenu.cs" />
@@ -62,7 +60,11 @@
     <Compile Include="Core\HitBox.cs" />
     <Compile Include="Core\Vec2.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\Player.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\Enemy.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\EnemyHandler.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Classes\GameObjectFolder\ProjectileFolder\Projectile.cs" />
+    <Compile Include="Classes\GameObjectFolder\ProjectileFolder\ProjectileHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +98,13 @@
     <Content Include="Textures\OnePlayerText.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\Enemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\PlayerTexture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Projectile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\TitelTexture.png">
