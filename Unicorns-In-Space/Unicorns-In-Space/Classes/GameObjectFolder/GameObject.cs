@@ -25,6 +25,9 @@ namespace Unicorns_In_Space
 
         public void Move(Vec2 direction)
         {
+            if (direction != Vec2.ZERO)
+                direction.Normalize();
+
             Vec2 nextPos = Position + MovementSpeed * direction;
             Vec2 help = nextPos;
 
