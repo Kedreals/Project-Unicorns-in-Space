@@ -11,11 +11,16 @@ namespace Unicorns_In_Space
     {
         Vec2 Position;
         Vec2 Size;
+        RectangleShape r;
 
         public HitBox(Vec2 pos, Vec2 s)
         {
             Position = pos;
             Size = s;
+            r = new RectangleShape(Size);
+            r.FillColor = Color.Transparent;
+            r.OutlineColor = Color.Red;
+            r.OutlineThickness = 1;
         }
 
         public HitBox(Vec2 pos, float width, float height) : this(pos, new Vec2(width, height)) { }
@@ -41,5 +46,10 @@ namespace Unicorns_In_Space
         }
 
         public void Update(Sprite sprite) { Position = sprite.Position; }
+
+        public void Debug(RenderWindow win)
+        {
+            win.Draw(r);
+        }
     }
 }
