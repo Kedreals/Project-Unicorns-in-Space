@@ -11,9 +11,9 @@ namespace Unicorns_In_Space
     {
         protected Sprite Sprite { get; set; }
         protected Texture Texture { get; set; }
-        protected Vec2 Position { get; set; }
+        public Vec2 Position { get; protected set; }
         public HitBox HitBox { get; protected set; }
-        public bool IsAlive { get; protected set; }
+        public bool IsAlive { get; set; }
         public float MovementSpeed { get; set; }
         public Vec2 Movement { get; set; }
 
@@ -50,12 +50,8 @@ namespace Unicorns_In_Space
 
         public virtual void Update(GameTime gameTime)
         {
-           if(!IsAlive)
-           {
-               
-           }
-           HitBox.Update(Sprite);
-           Sprite.Position = Position;
+            Sprite.Position = Position;
+            HitBox.Update(Sprite);
         }
 
         public virtual void Draw(RenderWindow window)

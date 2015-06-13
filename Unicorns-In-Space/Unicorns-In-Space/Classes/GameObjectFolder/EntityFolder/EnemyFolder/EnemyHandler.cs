@@ -42,6 +42,7 @@ namespace Unicorns_In_Space
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Draw(window);
+                enemy.HitBox.Debug(window);    
             }
         }
 

@@ -11,6 +11,7 @@ namespace Unicorns_In_Space
     {
         none,
         mainMenu,
+        gameOver,
         inGame
     }
 

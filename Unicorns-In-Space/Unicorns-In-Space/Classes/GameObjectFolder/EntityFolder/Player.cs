@@ -55,10 +55,22 @@ namespace Unicorns_In_Space
             Movement = move;
         }
 
+        public void CollisionWithEnemy()
+        {
+            foreach (Enemy enemy in EnemyHandler.enemyList)
+            {
+                if (HitBox.Collide(enemy.HitBox))
+                {
+                    IsAlive = false;
+                }
+            }
+        }
+
         public override void Update(GameTime gameTime) 
         {
             Control();
             Move(Movement);
+            CollisionWithEnemy();
 
             if (Joystick.IsButtonPressed(joyStickNumber, 0) && !buttonPressed) //button A
             {

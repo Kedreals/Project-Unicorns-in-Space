@@ -18,20 +18,19 @@ namespace Unicorns_In_Space
             HitBox = new HitBox(spawnPos, Texture.Size.X, Texture.Size.Y);
         }
 
-        public bool CollisionWithProjectile()
+        public void CollisionWithProjectile()
         {
             foreach (Projectile proj in ProjectileHandler.projectileList)
             {
                 if (HitBox.Collide(proj.HitBox))
                 {
-                    Console.Clear();
-                    Console.WriteLine("hit!!!!!!!!!!!!!!!!!");
-                    return true;
+                    IsAlive = false;
+                    proj.IsAlive = false;
                 }
             }
-
-            return false;
         }
+
+
 
         public override void Update(GameTime gameTime)
         {

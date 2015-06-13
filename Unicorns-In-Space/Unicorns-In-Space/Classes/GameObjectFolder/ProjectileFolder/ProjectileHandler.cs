@@ -42,6 +42,7 @@ namespace Unicorns_In_Space
             foreach(Projectile proj in projectileList)
             {
                 proj.Draw(window);
+                proj.HitBox.Debug(window);
             }
         }
 

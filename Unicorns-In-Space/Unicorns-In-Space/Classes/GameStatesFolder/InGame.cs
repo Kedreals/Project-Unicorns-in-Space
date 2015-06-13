@@ -32,6 +32,9 @@ namespace Unicorns_In_Space
             projectileHandler.Update(gameTime);
             enemyHandler.Update(gameTime);
 
+            if(!playerOne.IsAlive)
+                return EnumGameStates.none;
+
             return EnumGameStates.inGame;
         }
 
@@ -41,6 +44,7 @@ namespace Unicorns_In_Space
             playerOne.Draw(window);
             projectileHandler.Draw(window);
             enemyHandler.Draw(window);
+            
         }
     }
 }
