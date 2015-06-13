@@ -13,6 +13,7 @@ namespace Unicorns_In_Space
     {
         public Int64 HighScore = 0;
         Stopwatch specialShoot;
+        Stopwatch notMoving;
         public static long highScoreStatic1;
         public static long highScoreStatic2;
         private uint joyStickNumber;
@@ -26,6 +27,7 @@ namespace Unicorns_In_Space
             HitBox = new HitBox(spawnPos, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
             joyStickNumber = _joyStickNumber;
             specialShoot = new Stopwatch();
+            notMoving = new Stopwatch();
         }
 
         public void ShootMuni()
@@ -70,10 +72,23 @@ namespace Unicorns_In_Space
             Vec2 move = new Vec2(x, y);
 
             if (move.Length < epsylon)
+            {
                 move = Vec2.ZERO;
+            }
+
+            if(move == Vec2.ZERO)
+            {
+                notMoving.Start();
+            }
+
+            if (notMoving.Elapsed.Seconds > 2)
+                HighScore--;
 
             if (move != Vec2.ZERO)
+            {
+                notMoving.Reset();
                 move = move.GetNormalized();
+            }
 
             Movement = move;
         }

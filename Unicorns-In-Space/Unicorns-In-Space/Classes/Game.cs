@@ -32,7 +32,6 @@ namespace Unicorns_In_Space
             {
                 HandleGameStates();
             }
-
             currentGameState = gameState.Update(gameTime);
         }
 

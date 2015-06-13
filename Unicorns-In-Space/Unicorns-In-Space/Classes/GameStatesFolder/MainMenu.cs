@@ -106,6 +106,11 @@ namespace Unicorns_In_Space
                 return EnumGameStates.inGame;
             }
 
+            if (Joystick.IsButtonPressed(0, 6))
+            {
+                return EnumGameStates.none;
+            }
+
             return EnumGameStates.mainMenu;
         }
 

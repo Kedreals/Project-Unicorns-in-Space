@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,6 +135,11 @@ namespace Unicorns_In_Space
                     Player.highScoreStatic1 = playerOne.HighScore;
                     return EnumGameStates.gameOver;
                 }
+            }
+
+            if (Joystick.IsButtonPressed(0, 6))
+            {
+                return EnumGameStates.none;
             }
 
             return EnumGameStates.inGame;
