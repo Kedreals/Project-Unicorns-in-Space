@@ -9,20 +9,23 @@ namespace Unicorns_In_Space
 {
     class Projectile : GameObject
     {
+        Vec2 direction;
+
         public Player owner { get; protected set; }
-        public Projectile(Vec2 spawnPos, Player p) : base(spawnPos)
+        public Projectile(Vec2 spawnPos, Player p, Vec2 dir) : base(spawnPos)
         {
             owner = p;
-            MovementSpeed = 3f;
+            MovementSpeed = 2f;
             Texture = new Texture("Textures/Projectile.png");
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
             HitBox = new HitBox(spawnPos, Texture.Size.X, Texture.Size.Y);
+            direction = dir;
         }
 
         public override void Update(GameTime gameTime)
         {
-            Position += new Vec2(1,0);
+            Position += direction.GetNormalized() * MovementSpeed;
 
             if (Position.X > Game.WindowWidth)
                 this.Kill();
