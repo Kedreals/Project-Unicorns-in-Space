@@ -40,10 +40,7 @@ namespace Unicorns_In_Space
                 help.Y = nextPos.Y;
             }
 
-            Console.WriteLine(help);
-            Console.WriteLine(Position);
             Position = help;
-            Console.WriteLine(Position);
         }
 
         public void Kill()
@@ -53,11 +50,15 @@ namespace Unicorns_In_Space
 
         public virtual void Update(GameTime gameTime)
         {
-            HitBox.Update(Sprite);
-            Sprite.Position = Position;
+           if(!IsAlive)
+           {
+               
+           }
+           HitBox.Update(Sprite);
+           Sprite.Position = Position;
         }
 
-        public void Draw(RenderWindow window)
+        public virtual void Draw(RenderWindow window)
         {
             window.Draw(Sprite);
         }

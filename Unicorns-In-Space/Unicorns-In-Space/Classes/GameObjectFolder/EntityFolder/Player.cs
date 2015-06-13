@@ -10,13 +10,21 @@ namespace Unicorns_In_Space
 {
     class Player : GameObject
     {
-        public Player(Vec2 spawnPos) : base(spawnPos) {
-            MovementSpeed = 1.5f;
+        private uint joyStickNumber;
+        private bool buttonPressed = false;
+
+        public Player(Vec2 spawnPos, uint _joyStickNumber) : base(spawnPos) {
+            MovementSpeed = 2f;
             Texture = new Texture("Textures/PlayerTexture.png");
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
             HitBox = new HitBox(spawnPos, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
-            Movement = new Vec2(0, 0);
+            joyStickNumber = _joyStickNumber;
+        }
+
+        public void Shoot()
+        {
+            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2)));
         }
 
         public void Control()
@@ -26,13 +34,13 @@ namespace Unicorns_In_Space
 
             float x, y;
 
-            if (Math.Abs(Joystick.GetAxisPosition(0, Joystick.Axis.X)) > epsylon)
-                x = Joystick.GetAxisPosition(0, Joystick.Axis.X);
+            if (Math.Abs(Joystick.GetAxisPosition(joyStickNumber, Joystick.Axis.X)) > epsylon)
+                x = Joystick.GetAxisPosition(joyStickNumber, Joystick.Axis.X);
             else
                 x = 0;
 
-            if (Math.Abs(Joystick.GetAxisPosition(0, Joystick.Axis.Y)) > epsylon)
-                y = Joystick.GetAxisPosition(0, Joystick.Axis.Y);
+            if (Math.Abs(Joystick.GetAxisPosition(joyStickNumber, Joystick.Axis.Y)) > epsylon)
+                y = Joystick.GetAxisPosition(joyStickNumber, Joystick.Axis.Y);
             else
                 y = 0;
 
@@ -51,7 +59,24 @@ namespace Unicorns_In_Space
         {
             Control();
             Move(Movement);
+
+            if (Joystick.IsButtonPressed(joyStickNumber, 0) && !buttonPressed) //button A
+            {
+                Shoot();
+                buttonPressed = true;
+            }
+
+            else if(!Joystick.IsButtonPressed(joyStickNumber, 0))
+            {
+                buttonPressed = false;
+            }
+
             base.Update(gameTime);
+        }
+
+        public override void Draw(RenderWindow window)
+        {
+            base.Draw(window);
         }
     }
 }
