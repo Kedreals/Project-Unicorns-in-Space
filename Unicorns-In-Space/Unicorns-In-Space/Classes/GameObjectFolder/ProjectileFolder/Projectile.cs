@@ -15,7 +15,7 @@ namespace Unicorns_In_Space
         public Projectile(Vec2 spawnPos, Player p, Vec2 dir) : base(spawnPos)
         {
             owner = p;
-            MovementSpeed = 2f;
+            MovementSpeed = 1.5f;
             Texture = new Texture("Textures/Projectile.png");
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
@@ -25,7 +25,7 @@ namespace Unicorns_In_Space
 
         public override void Update(GameTime gameTime)
         {
-            Position += direction.GetNormalized() * MovementSpeed;
+            Position += direction.GetNormalized() * MovementSpeed * gameTime.EllapsedTime.Milliseconds;
 
             if (Position.X > Game.WindowWidth)
                 this.Kill();

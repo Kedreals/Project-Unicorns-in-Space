@@ -31,13 +31,13 @@ namespace Unicorns_In_Space
         {
             if (HighScore > 0 && HighScore % 1000 == 0)
             {
-    
+                specialShoot.Start();
             }
         }
 
         public void Shoot()
         {
-
+            ShootMuni();
            
 
             ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 1)));
@@ -87,7 +87,7 @@ namespace Unicorns_In_Space
         public override void Update(GameTime gameTime) 
         {
             Control();
-            Move(Movement);
+            Move(Movement * gameTime.EllapsedTime.Milliseconds);
             CollisionWithEnemy();
 
             if (Joystick.IsButtonPressed(joyStickNumber, 0) && !buttonPressed) //button A
