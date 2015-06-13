@@ -13,12 +13,10 @@ void main(void)
 	//lese die Farbe aus der Textur aus, an dem sich dieser Pixel befindet:
 	vec4 color = texture2D(texture, texCoord).rgba;
 
-	//sinus von der Zeit auf das Intervall [0, 1] bringen (damit man es für lineare Interpolation unten verwenden kann)
-	float t = sin(time) * 0.5 + 0.5;
-
-	//ausgegraute Farbe:
-	float help = (color.r + color.g + color.b) * 0.333;
+	color.r = sin(time);
+	color.g = cos(time);
+	color.b = sin(time) + 3.1415;
 
 	//interpoliere abhängig von t zwischen der normalen Farbe und der ausgegrauten Farbe
-	gl_FragColor = (1.0 - t) * color + t * vec4(help, help, help, color.a);
+	gl_FragColor = color;
 }
