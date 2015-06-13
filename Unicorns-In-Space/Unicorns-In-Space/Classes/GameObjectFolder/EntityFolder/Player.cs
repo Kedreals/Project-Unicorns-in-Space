@@ -25,6 +25,7 @@ namespace Unicorns_In_Space
             Sprite.Position = spawnPos;
             HitBox = new HitBox(spawnPos, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
             joyStickNumber = _joyStickNumber;
+            specialShoot = new Stopwatch();
         }
 
         public void ShootMuni()
@@ -33,15 +34,20 @@ namespace Unicorns_In_Space
             {
                 specialShoot.Start();
             }
+
+            if (specialShoot.Elapsed.Seconds > 5)
+                specialShoot.Reset();
         }
 
         public void Shoot()
         {
             ShootMuni();
-           
-
-            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 1)));
-            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, -1)));
+            
+            if(specialShoot.IsRunning)
+            {
+                ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 1)));
+                ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, -1)));
+            }           
             ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 0)));
         }
 

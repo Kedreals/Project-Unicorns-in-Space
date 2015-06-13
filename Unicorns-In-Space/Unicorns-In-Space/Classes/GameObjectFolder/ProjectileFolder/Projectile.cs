@@ -15,7 +15,7 @@ namespace Unicorns_In_Space
         public Projectile(Vec2 spawnPos, Player p, Vec2 dir) : base(spawnPos)
         {
             owner = p;
-            MovementSpeed = 1.5f;
+            MovementSpeed = 1f;
             Texture = new Texture("Textures/Projectile.png");
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
