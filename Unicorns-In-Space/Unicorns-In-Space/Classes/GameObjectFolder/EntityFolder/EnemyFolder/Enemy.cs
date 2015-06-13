@@ -11,7 +11,7 @@ namespace Unicorns_In_Space
     {
         public Enemy(Vec2 spawnPos) : base(spawnPos)
         {
-            MovementSpeed = 1.5f;
+            MovementSpeed = 0.5f;
             Texture = new Texture("Textures/Enemy.png");
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
@@ -30,11 +30,18 @@ namespace Unicorns_In_Space
             }
         }
 
+        public void RandomMovement(GameTime gameTime)
+        {
+            Random r = new Random();
 
+            Movement = new Vec2(-1, (float)Math.Cos(gameTime.TotalTime.TotalSeconds * 2));
+        }
 
         public override void Update(GameTime gameTime)
         {
             CollisionWithProjectile();
+            RandomMovement(gameTime);
+            Move(Movement);
             base.Update(gameTime);
         }
     }

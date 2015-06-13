@@ -9,7 +9,7 @@ namespace Unicorns_In_Space
 {
     abstract class GameObject
     {
-        protected Sprite Sprite { get; set; }
+        public Sprite Sprite { get; protected set; }
         protected Texture Texture { get; set; }
         public Vec2 Position { get; protected set; }
         public HitBox HitBox { get; protected set; }
@@ -26,19 +26,16 @@ namespace Unicorns_In_Space
         public void Move(Vec2 direction)
         {
             Vec2 nextPos = Position + MovementSpeed * direction;
-            Vec2 help;
+            Vec2 help = nextPos;
 
-            if (nextPos.X >= Game.WindowWidth - Sprite.Texture.Size.X || nextPos.X <= 0)
-                help.X = Position.X;
-            else
-                help.X = nextPos.X;
+            if (GetType().Name.Equals("Player"))
+            {
+                if (nextPos.X >= Game.WindowWidth - Sprite.Texture.Size.X || nextPos.X <= 0)
+                    help.X = Position.X;
+            }
 
             if (nextPos.Y >= Game.WindowHeight - Sprite.Texture.Size.Y || nextPos.Y <= 0)
                 help.Y = Position.Y;
-            else
-            {
-                help.Y = nextPos.Y;
-            }
 
             Position = help;
         }
