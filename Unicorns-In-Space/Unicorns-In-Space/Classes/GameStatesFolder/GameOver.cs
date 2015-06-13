@@ -1,25 +1,27 @@
 ﻿using SFML.Graphics;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Unicorns_In_Space
 {
-    class InGame : GameStates
+    class GameOver : GameStates
     {
-        Player playerOne;
-        Player playerTwo;
-        ProjectileHandler projectileHandler;
-        EnemyHandler enemyHandler;
         Random r = new Random();
-        public static int PlayerNumbers { get; set; }
 
+        Texture BackgroundTexture = new Texture("Textures/TitleScreenBackgroundTexture.png");
         Texture FlashyTitelTexture = new Texture("Textures/TitelTexture.png");
+        Texture GameOverTexture = new Texture("Textures/GameOver.png");
+        Texture HighscoreTexture = new Texture("Textures/Highscore.png");
 
         Sprite Background;
         Sprite FlashyTitel;
+        Sprite GameOverSprite;
+        Sprite Highscore;
         CircleShape point;
 
         Shader flashShader;
@@ -37,10 +39,21 @@ namespace Unicorns_In_Space
 
         public void Initialize()
         {
-            Background = new Sprite((new RenderTexture(Game.WindowWidth, Game.WindowHeight)).Texture);
+            
+        }
+        
+        public void LoadContent()
+        {
+            Background = new Sprite(BackgroundTexture);
+            Background.Scale = new Vec2((float)Game.WindowWidth / (float)BackgroundTexture.Size.X, (float)Game.WindowHeight / (float)BackgroundTexture.Size.Y);
             FlashyTitel = new Sprite(FlashyTitelTexture);
             Background.Position = Vec2.ZERO;
             FlashyTitel.Position = new Vec2(((float)Game.WindowWidth - (float)FlashyTitel.Texture.Size.X) / 2, 10);
+
+            GameOverSprite = new Sprite(GameOverTexture);
+            GameOverSprite.Position = new Vec2(((float)Game.WindowWidth - (float)GameOverTexture.Size.X) / 2, FlashyTitel.Position.Y + 200);
+            Highscore = new Sprite(HighscoreTexture);
+            Highscore.Position = new Vec2(((float)Game.WindowWidth - (float)HighscoreTexture.Size.X) / 2, GameOverSprite.Position.Y + 150);
 
             flashShader = new Shader(null, "Shader/flashShader.frag");
             flashState = new RenderStates(flashShader);
@@ -57,41 +70,20 @@ namespace Unicorns_In_Space
 
             HighscorePlayer1 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
             HighscorePlayer1.Color = Color.Cyan;
-            HighscorePlayer1.Position = new Vec2(10, 10);
+            HighscorePlayer1.Position = (Vec2)Highscore.Position + new Vec2(HighscoreTexture.Size.X / 6, HighscoreTexture.Size.Y);
             HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
             HighscorePlayer2.Color = Color.Magenta;
-            HighscorePlayer2.Position = new Vec2(10, 30);
+            HighscorePlayer2.Position = (Vec2)HighscorePlayer1.Position + new Vec2(HighscoreTexture.Size.X *4/6, 0);
         }
-
-        public void LoadContent()
-        {
-            if (PlayerNumbers == 1)
-            {
-                playerOne = new Player(new Vec2(10, 10), 0);
-            }
-            else if (PlayerNumbers == 2)
-            {
-                playerOne = new Player(new Vec2(10, 10), 0);
-                playerTwo = new Player(new Vec2(10, 900), 1);
-            }
-            projectileHandler = new ProjectileHandler();
-            enemyHandler = new EnemyHandler();
-        }
-
+        
         public EnumGameStates Update(GameTime gameTime)
         {
-            HighscorePlayer1.DisplayedString = playerOne.HighScore.ToString();
+            HighscorePlayer1.DisplayedString = Player.highScoreStatic1.ToString();
 
-            if (PlayerNumbers > 1)
-                HighscorePlayer2.DisplayedString = playerTwo.HighScore.ToString();
-
-            playerOne.Update(gameTime);
-            if (playerTwo != null)
-                playerTwo.Update(gameTime);
-
-            projectileHandler.Update(gameTime);
-            enemyHandler.Update(gameTime);
-
+            if (InGame.PlayerNumbers > 1)
+                HighscorePlayer2.DisplayedString = Player.highScoreStatic2.ToString();
+            
+            flashShader.SetParameter("time", (float)gameTime.TotalTime.TotalSeconds * 5f);
             fadeShade.SetParameter("time", (float)gameTime.TotalTime.TotalSeconds);
 
             if (Math.Sin(gameTime.TotalTime.Seconds) * 0.5 + 0.5 <= 0.01)
@@ -99,35 +91,17 @@ namespace Unicorns_In_Space
                 newPointsSet = true;
             }
 
-            int help = (int)gameTime.TotalTime.TotalSeconds / 10 + 1;
-
-            if (EnemyHandler.enemyList.Count < help)
-                for (int i = 0; i < help; ++i)
-                    enemyHandler.Add(new Enemy(new Vec2(Game.WindowWidth + 5, (float)r.NextDouble() * (Game.WindowHeight - 55))));
-
-            if(playerTwo != null)
+            if(Joystick.IsButtonPressed(0,0))
             {
-                if (!playerOne.IsAlive || !playerTwo.IsAlive)
-                {
-                    Player.highScoreStatic1 = playerOne.HighScore;
-                    Player.highScoreStatic2 = playerTwo.HighScore;
-                    return EnumGameStates.gameOver;
-                }
-            }
-            else
-            {
-                if (!playerOne.IsAlive)
-                {
-                    Player.highScoreStatic1 = playerOne.HighScore;
-                    return EnumGameStates.gameOver;
-                }
+                return EnumGameStates.none;
             }
 
-            return EnumGameStates.inGame;
+            return EnumGameStates.gameOver;
         }
 
         public void Draw(RenderWindow window)
         {
+
             if (newPointsSet)
             {
                 renderTexture.Clear(Color.Black);
@@ -145,14 +119,13 @@ namespace Unicorns_In_Space
 
             renderTexture.Display();
             window.Draw(Background, fade);
+            
+            window.Draw(FlashyTitel, flashState);
+            window.Draw(GameOverSprite, flashState);
+            window.Draw(Highscore, flashState);
 
-            playerOne.Draw(window);
-            if (playerTwo != null)
-                playerTwo.Draw(window);
-            projectileHandler.Draw(window);
-            enemyHandler.Draw(window);
             window.Draw(HighscorePlayer1);
-            if (PlayerNumbers > 1)
+            if (InGame.PlayerNumbers > 1)
                 window.Draw(HighscorePlayer2);
         }
     }
