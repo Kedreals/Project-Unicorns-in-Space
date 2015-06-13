@@ -30,6 +30,7 @@ namespace Unicorns_In_Space
                 window.DispatchEvents();
                 gameTime.Update();
                 Update(gameTime);
+                Joystick.Update();
                 Draw(window);
                 
 

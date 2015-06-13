@@ -10,8 +10,10 @@ namespace Unicorns_In_Space
     class InGame : GameStates
     {
         Player playerOne;
+        Player playerTwo;
         ProjectileHandler projectileHandler;
         EnemyHandler enemyHandler;
+        public static int PlayerNumbers { get; set; }
 
         public void Initialize()
         {
@@ -20,7 +22,13 @@ namespace Unicorns_In_Space
         
         public void LoadContent()
         {
-            playerOne = new Player(new Vec2(10, 10), 0);
+            if (PlayerNumbers == 1)
+                playerOne = new Player(new Vec2(10, 10), 0);
+            else if (PlayerNumbers == 2)
+            {
+                playerOne = new Player(new Vec2(10, 10), 0);
+                playerTwo = new Player(new Vec2(10, 900), 1);
+            }
             projectileHandler = new ProjectileHandler();
             enemyHandler = new EnemyHandler();
             enemyHandler.Add(new Enemy(new Vec2(1200, 500)));
@@ -29,6 +37,9 @@ namespace Unicorns_In_Space
         public EnumGameStates Update(GameTime gameTime)
         {
             playerOne.Update(gameTime);
+            if (playerTwo != null)
+                playerTwo.Update(gameTime);
+
             projectileHandler.Update(gameTime);
             enemyHandler.Update(gameTime);
 
@@ -42,6 +53,8 @@ namespace Unicorns_In_Space
         {
             
             playerOne.Draw(window);
+            if (playerTwo != null)
+                playerTwo.Draw(window);
             projectileHandler.Draw(window);
             enemyHandler.Draw(window);
             
