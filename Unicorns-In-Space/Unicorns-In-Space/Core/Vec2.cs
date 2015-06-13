@@ -66,5 +66,10 @@ namespace Unicorns_In_Space
         }
 
         public float dot(Vec2 v) { return X * v.X + Y * v.Y; }
+
+        public override string ToString()
+        {
+            return "[X = " + X + ", Y = " + Y + "]";
+        } 
     }
 }
