@@ -27,8 +27,6 @@ namespace Unicorns_In_Space
         {
             Vec2 nextPos = Position + MovementSpeed * direction;
             Vec2 help;
-            Console.Clear();
-            Console.WriteLine("x: " + nextPos.X + "    y: " + nextPos.Y);
 
             if (nextPos.X >= Game.WindowWidth - Sprite.Texture.Size.X || nextPos.X <= 0)
                 help.X = Position.X;
@@ -40,13 +38,12 @@ namespace Unicorns_In_Space
             else
             {
                 help.Y = nextPos.Y;
-                Console.WriteLine(help.Y);
             }
-            
 
-            Position += help - Position;
-            
-            //Position += MovementSpeed * direction;
+            Console.WriteLine(help);
+            Console.WriteLine(Position);
+            Position = help;
+            Console.WriteLine(Position);
         }
 
         public void Kill()
