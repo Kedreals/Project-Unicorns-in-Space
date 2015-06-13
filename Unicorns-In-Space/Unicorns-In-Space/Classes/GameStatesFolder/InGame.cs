@@ -60,10 +60,10 @@ namespace Unicorns_In_Space
             point.FillColor = Color.White;
 
             HighscorePlayer1 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
-            HighscorePlayer1.Color = Color.Cyan;
+            HighscorePlayer1.Color = Color.Magenta;
             HighscorePlayer1.Position = new Vec2(10, 10);
             HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
-            HighscorePlayer2.Color = Color.Magenta;
+            HighscorePlayer2.Color = Color.Cyan;
             HighscorePlayer2.Position = (Vec2)HighscorePlayer1.Position + new Vec2(0, 25);
         }
 

@@ -11,13 +11,15 @@ namespace Unicorns_In_Space
     {
         public static uint WindowWidth = 1920;
         public static uint WindowHeight = 1000;
-        
+
+        public static HighscoreList Highscores { get; protected set; }
+
         EnumGameStates currentGameState = EnumGameStates.mainMenu;
         EnumGameStates prevGameState;
 
         GameStates gameState;
 
-        public Game() : base(WindowWidth, WindowHeight, "Project: Unicorns in Space") { }
+        public Game() : base(WindowWidth, WindowHeight, "Project: Unicorns in Space") { Highscores = new HighscoreList(); }
 
         public override void Draw(RenderWindow win)
         {
