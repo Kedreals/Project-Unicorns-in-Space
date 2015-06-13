@@ -56,7 +56,9 @@ namespace Unicorns_In_Space
         public void LoadContent()
         {
             if (PlayerNumbers == 1)
+            {
                 playerOne = new Player(new Vec2(10, 10), 0);
+            }
             else if (PlayerNumbers == 2)
             {
                 playerOne = new Player(new Vec2(10, 10), 0);
@@ -88,8 +90,16 @@ namespace Unicorns_In_Space
                 for (int i = 0; i < help; ++i)
                     enemyHandler.Add(new Enemy(new Vec2(Game.WindowWidth + 5, (float)r.NextDouble() * Game.WindowHeight)));
 
-            if (!playerOne.IsAlive)
-                return EnumGameStates.none;
+            if(playerTwo != null)
+            {
+                if (!playerOne.IsAlive || !playerTwo.IsAlive)
+                    return EnumGameStates.none;
+            }
+            else
+            {
+                if (!playerOne.IsAlive)
+                    return EnumGameStates.none;
+            }
 
             return EnumGameStates.inGame;
         }

@@ -11,7 +11,7 @@ namespace Unicorns_In_Space
     class Player : GameObject
     {
         private uint joyStickNumber;
-        public static bool buttonPressed = false;
+        public bool buttonPressed = true;
 
         public Player(Vec2 spawnPos, uint _joyStickNumber) : base(spawnPos) {
             MovementSpeed = 2f;

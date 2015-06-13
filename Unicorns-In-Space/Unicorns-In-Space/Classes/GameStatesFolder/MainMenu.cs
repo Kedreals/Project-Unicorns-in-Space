@@ -99,7 +99,6 @@ namespace Unicorns_In_Space
 
             if(Joystick.IsButtonPressed(0,0))
             {
-                Player.buttonPressed = true;
                 if (onePlayerSelected)
                     InGame.PlayerNumbers = 1;
                 else if (twoPlayerSelected)
