@@ -47,6 +47,9 @@ namespace Unicorns_In_Space
                 case EnumGameStates.inGame:
                     gameState = new InGame();
                     break;
+                case EnumGameStates.gameOver:
+                    gameState = new GameOver();
+                    break;
                 default:
                     throw new NotFiniteNumberException();
             }

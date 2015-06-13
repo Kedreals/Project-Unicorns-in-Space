@@ -11,6 +11,8 @@ namespace Unicorns_In_Space
     class Player : GameObject
     {
         public Int64 HighScore = 0;
+        public static long highScoreStatic1;
+        public static long highScoreStatic2;
         private uint joyStickNumber;
         public bool buttonPressed = true;
 

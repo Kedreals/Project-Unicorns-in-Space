@@ -64,7 +64,7 @@ namespace Unicorns_In_Space
             HighscorePlayer1.Position = new Vec2(10, 10);
             HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
             HighscorePlayer2.Color = Color.Magenta;
-            HighscorePlayer2.Position = new Vec2(10, 20);
+            HighscorePlayer2.Position = new Vec2(10, 30);
         }
 
         public void LoadContent()
@@ -119,12 +119,19 @@ namespace Unicorns_In_Space
             if(playerTwo != null)
             {
                 if (!playerOne.IsAlive || !playerTwo.IsAlive)
-                    return EnumGameStates.none;
+                {
+                    Player.highScoreStatic1 = playerOne.HighScore;
+                    Player.highScoreStatic2 = playerTwo.HighScore;
+                    return EnumGameStates.gameOver;
+                }
             }
             else
             {
                 if (!playerOne.IsAlive)
-                    return EnumGameStates.none;
+                {
+                    Player.highScoreStatic1 = playerOne.HighScore;
+                    return EnumGameStates.gameOver;
+                }
             }
 
             return EnumGameStates.inGame;
