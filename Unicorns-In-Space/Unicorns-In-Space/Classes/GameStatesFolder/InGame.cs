@@ -60,7 +60,7 @@ namespace Unicorns_In_Space
             HighscorePlayer1.Position = new Vec2(10, 10);
             HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
             HighscorePlayer2.Color = Color.Magenta;
-            HighscorePlayer2.Position = new Vec2(10, 30);
+            HighscorePlayer2.Position = (Vec2)HighscorePlayer1.Position + new Vec2(0, 25);
         }
 
         public void LoadContent()
