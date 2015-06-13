@@ -5,19 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Window;
 using SFML.Graphics;
+using System.Diagnostics;
 
 namespace Unicorns_In_Space
 {
     class Player : GameObject
     {
         public Int64 HighScore = 0;
+        Stopwatch specialShoot;
         public static long highScoreStatic1;
         public static long highScoreStatic2;
         private uint joyStickNumber;
         public bool buttonPressed = true;
 
         public Player(Vec2 spawnPos, uint _joyStickNumber) : base(spawnPos) {
-            MovementSpeed = 2f;
+            MovementSpeed = 4f;
             Texture = new Texture("Textures/PlayerTexture.png");
             Sprite = new Sprite(Texture);
             Sprite.Position = spawnPos;
@@ -25,9 +27,22 @@ namespace Unicorns_In_Space
             joyStickNumber = _joyStickNumber;
         }
 
+        public void ShootMuni()
+        {
+            if (HighScore > 0 && HighScore % 1000 == 0)
+            {
+    
+            }
+        }
+
         public void Shoot()
         {
-            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this));
+
+           
+
+            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 1)));
+            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, -1)));
+            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 0)));
         }
 
         public void Control()
