@@ -61,7 +61,7 @@ namespace Unicorns_In_Space
 
         public void RandomMovement()
         {
-            Movement = new Vec2(-1, r(stop.Elapsed.Seconds + 60*(stop.Elapsed.Minutes + 60*stop.Elapsed.Hours))/MovementSpeed);
+            Movement = new Vec2(-1, r(stop.Elapsed.Seconds + 60*(stop.Elapsed.Minutes + 60*stop.Elapsed.Hours)));
         }
 
         public override void Update(GameTime gameTime)

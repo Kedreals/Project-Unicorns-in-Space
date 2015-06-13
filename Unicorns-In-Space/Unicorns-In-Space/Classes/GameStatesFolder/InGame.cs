@@ -85,6 +85,8 @@ namespace Unicorns_In_Space
 
         public EnumGameStates Update(GameTime gameTime)
         {
+            flashShader.SetParameter("time", (float)gameTime.TotalTime.TotalSeconds * 5f);
+
             if (resetGameTime)
             {
                 gameTime.Restart();
@@ -157,7 +159,7 @@ namespace Unicorns_In_Space
             renderTexture.Display();
             window.Draw(Background, fade);
 
-            playerOne.Draw(window);
+            window.Draw(playerOne.Sprite);
             if (playerTwo != null)
                 window.Draw(playerTwo.Sprite);
             projectileHandler.Draw(window);
