@@ -31,5 +31,12 @@ namespace Unicorns_In_Space
             EllapsedTime = watch.Elapsed - TotalTime;
             TotalTime = watch.Elapsed;
         }
+
+        public void Restart()
+        {
+            watch.Restart();
+            TotalTime = new TimeSpan(0);
+            EllapsedTime = new TimeSpan(0);
+        }
     }
 }

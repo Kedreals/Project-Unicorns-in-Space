@@ -24,9 +24,11 @@ namespace Unicorns_In_Space
 
         Shader flashShader;
         Shader fadeShade;
+        Shader shadeShader;
 
         RenderStates flashState;
         RenderStates fade;
+        RenderStates shade;
 
         RenderTexture renderTexture;
 
@@ -34,9 +36,11 @@ namespace Unicorns_In_Space
         Text HighscorePlayer2;
 
         bool newPointsSet = true;
+        bool resetGameTime = true;
 
         public void Initialize()
         {
+            resetGameTime = true;
             Background = new Sprite((new RenderTexture(Game.WindowWidth, Game.WindowHeight)).Texture);
             FlashyTitel = new Sprite(FlashyTitelTexture);
             Background.Position = Vec2.ZERO;
@@ -73,6 +77,7 @@ namespace Unicorns_In_Space
             {
                 playerOne = new Player(new Vec2(10, 10), 0);
                 playerTwo = new Player(new Vec2(10, 900), 1);
+                playerTwo.Sprite.Color = new Color((byte)(playerTwo.Sprite.Color.R + 90), playerTwo.Sprite.Color.G, playerTwo.Sprite.Color.B);
             }
             projectileHandler = new ProjectileHandler();
             enemyHandler = new EnemyHandler();
@@ -80,6 +85,12 @@ namespace Unicorns_In_Space
 
         public EnumGameStates Update(GameTime gameTime)
         {
+            if (resetGameTime)
+            {
+                gameTime.Restart();
+                resetGameTime = false;
+            }
+
             HighscorePlayer1.DisplayedString = playerOne.HighScore.ToString();
 
             if (PlayerNumbers > 1)
@@ -141,7 +152,7 @@ namespace Unicorns_In_Space
 
             playerOne.Draw(window);
             if (playerTwo != null)
-                playerTwo.Draw(window);
+                window.Draw(playerTwo.Sprite);
             projectileHandler.Draw(window);
             enemyHandler.Draw(window);
             window.Draw(HighscorePlayer1);

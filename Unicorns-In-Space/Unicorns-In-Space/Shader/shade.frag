@@ -1,4 +1,6 @@
 uniform sampler2D texture;
+uniform vec4 addedColor;
+uniform float percent;
 
 void main(void)
 {
@@ -6,7 +8,7 @@ void main(void)
 
 	vec4 color = texture2D(texture, texCoord).rgba;
 
-	vec4 help = vec4(1,1,1,0);
+	float f = percent/100.0f;
 
-	gl_FragColor = (color + help) * (1.0/length(color + help));
+	gl_FragColor = (1-f)color + f*addedColor;
 }

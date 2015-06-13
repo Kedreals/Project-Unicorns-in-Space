@@ -78,7 +78,7 @@
     <None Include="Shader\flashShader.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Shader\sparkleShader.frag">
+    <None Include="Shader\shade.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
