@@ -91,9 +91,9 @@ namespace Unicorns_In_Space
                 newPointsSet = true;
             }
 
-            if(Joystick.IsButtonPressed(0,0))
+            if(Joystick.IsButtonPressed(0, 7))
             {
-                return EnumGameStates.none;
+                return EnumGameStates.mainMenu;
             }
 
             return EnumGameStates.gameOver;

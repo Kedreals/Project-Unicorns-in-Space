@@ -63,6 +63,7 @@ namespace Unicorns_In_Space
             {
                 if (HitBox.Collide(enemy.HitBox))
                 {
+                    HighScore = (HighScore * 9) / 10;
                     IsAlive = false;
                 }
             }

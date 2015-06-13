@@ -25,7 +25,6 @@ namespace Unicorns_In_Space
         {
             for (int i = 0; i < enemyList.Count; ++i)
             {
-                Console.WriteLine(0 - enemyList[i].Sprite.Texture.Size.X);
                 if (!enemyList[i].IsAlive || enemyList[i].Position.X < 0 - (int)enemyList[i].Sprite.Texture.Size.X)
                 {
                     enemyList.RemoveAt(i);
