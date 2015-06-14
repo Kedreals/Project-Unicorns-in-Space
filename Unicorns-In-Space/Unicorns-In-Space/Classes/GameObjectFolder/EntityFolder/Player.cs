@@ -20,10 +20,9 @@ namespace Unicorns_In_Space
         public bool buttonPressed = true;
         long i;
 
-        bool sinus = false;
-        bool cosinus = false;
+        public bool sinus = false;
+        public bool cosinus = false;
         bool shootMoveSwitchPressed = true;
-        float v;
 
         public Player(Vec2 spawnPos, uint _joyStickNumber) : base(spawnPos) {
             MovementSpeed = 4f;
@@ -52,31 +51,19 @@ namespace Unicorns_In_Space
         {
             if (Joystick.IsButtonPressed(joyStickNumber, 2) && !shootMoveSwitchPressed) //X Button Sinus
             {
-                Console.WriteLine("X SIN");
                 shootMoveSwitchPressed = true;
                 sinus = !sinus;
                 cosinus = false;
             }
 
-            else if (Joystick.IsButtonPressed(joyStickNumber, 3) && !shootMoveSwitchPressed) //Y Button
+            else if (Joystick.IsButtonPressed(joyStickNumber, 3) && !shootMoveSwitchPressed) //Y Button Cosinus
             {
-                Console.WriteLine("Y COS");
                 shootMoveSwitchPressed = true;
                 sinus = false;
                 cosinus = !cosinus;
             }
 
-            if (sinus)
-            {
-                v = (float)Math.Sin(gameTime.TotalTime.Seconds);
-            }
-
-                else if(cosinus)
-            {
-                v = (float)Math.Cos(gameTime.TotalTime.Seconds);
-            }
-            
-            else if(!Joystick.IsButtonPressed(joyStickNumber, 1) && !Joystick.IsButtonPressed(joyStickNumber, 2))
+            else if (!Joystick.IsButtonPressed(joyStickNumber, 2) && !Joystick.IsButtonPressed(joyStickNumber, 3))
             {
                 shootMoveSwitchPressed = false;
             }
@@ -88,10 +75,10 @@ namespace Unicorns_In_Space
             
             if(specialShootTimer.IsRunning)
             {
-                ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 1)));
-                ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, -1)));
+                ProjectileHandler.projectileList.Add(new Projectile(this, new Vec2(1, 1), true));
+                ProjectileHandler.projectileList.Add(new Projectile(this, new Vec2(1, -1), true));
             }
-            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, v)));
+            ProjectileHandler.projectileList.Add(new Projectile(this, new Vec2(1, 1), false));
         }
 
         public void Control(GameTime gameTime)

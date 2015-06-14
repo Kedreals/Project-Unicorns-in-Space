@@ -17,6 +17,11 @@ namespace Unicorns_In_Space
         public float MovementSpeed { get; set; }
         public Vec2 Movement { get; set; }
 
+        public GameObject()
+        {
+            IsAlive = true;
+        }
+
         public GameObject(Vec2 spawnPos)
         {
             IsAlive = true;

@@ -9,23 +9,56 @@ namespace Unicorns_In_Space
 {
     class Projectile : GameObject
     {
+        Vec2 pos;
         Vec2 direction;
+        float v = 0;
+        bool s;
+        bool c;
+        bool special;
 
         public Player owner { get; protected set; }
-        public Projectile(Vec2 spawnPos, Player p, Vec2 dir) : base(spawnPos)
+        public Projectile(Player p, Vec2 dir, bool _special) : base()
         {
             owner = p;
-            MovementSpeed = 1f;
+            pos = new Vec2(owner.Position.X + owner.Sprite.Texture.Size.X + 10, owner.Position.Y + owner.Sprite.Texture.Size.Y / 2);
             Texture = new Texture("Textures/Projectile.png");
             Sprite = new Sprite(Texture);
-            Sprite.Position = spawnPos;
-            HitBox = new HitBox(spawnPos, Texture.Size.X, Texture.Size.Y);
+            Sprite.Position = pos;
+            HitBox = new HitBox(pos, Texture.Size.X, Texture.Size.Y);
             direction = dir;
+            special = _special;
+            Position = pos;
+
+            s = owner.sinus;
+            c = owner.cosinus;
         }
 
         public override void Update(GameTime gameTime)
         {
-            Position += direction.GetNormalized() * MovementSpeed * gameTime.EllapsedTime.Milliseconds;
+            Console.Clear();
+            if (!special)
+            {
+                if (s)
+                {
+                    v = (float)Math.Sin((float)gameTime.TotalTime.Milliseconds / 45f);
+                    Console.WriteLine("sin");
+                }
+
+                else if (c)
+                {
+                    v = (float)Math.Cos((float)gameTime.TotalTime.Milliseconds / 45f);
+                    Console.WriteLine("cos");
+                }
+
+                else if (!s && !c)
+                {
+                    v = 0;
+                }
+            }
+            direction = new Vec2(direction.X, 2 * v);
+            
+
+            Position += direction.GetNormalized() * gameTime.EllapsedTime.Milliseconds;
 
             if (Position.X > Game.WindowWidth)
                 this.Kill();
