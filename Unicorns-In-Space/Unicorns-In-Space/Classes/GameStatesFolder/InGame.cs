@@ -125,6 +125,7 @@ namespace Unicorns_In_Space
                 {
                     Player.highScoreStatic1 = playerOne.HighScore;
                     Player.highScoreStatic2 = playerTwo.HighScore;
+                    Game.Highscores.Add(Math.Max(playerOne.HighScore, playerTwo.HighScore), "NAME");
                     return EnumGameStates.gameOver;
                 }
             }
@@ -133,6 +134,7 @@ namespace Unicorns_In_Space
                 if (!playerOne.IsAlive)
                 {
                     Player.highScoreStatic1 = playerOne.HighScore;
+                    Game.Highscores.Add(playerOne.HighScore, "NAME");
                     return EnumGameStates.gameOver;
                 }
             }

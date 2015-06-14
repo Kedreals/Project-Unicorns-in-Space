@@ -13,6 +13,8 @@ namespace Unicorns_In_Space
         protected RenderWindow window;
         GameTime gameTime;
 
+        public static HighscoreList Highscores { get; protected set; }
+
         public AbstractGame(uint width, uint heigth, string titel)
         {
             window = new RenderWindow(new VideoMode(width, heigth), titel);

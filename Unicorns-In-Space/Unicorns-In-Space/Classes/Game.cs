@@ -12,8 +12,6 @@ namespace Unicorns_In_Space
         public static uint WindowWidth = 1920;
         public static uint WindowHeight = 1000;
 
-        public static HighscoreList Highscores { get; protected set; }
-
         EnumGameStates currentGameState = EnumGameStates.mainMenu;
         EnumGameStates prevGameState;
 
@@ -40,6 +38,7 @@ namespace Unicorns_In_Space
             switch(currentGameState)
             {
                 case EnumGameStates.none:
+                    Highscores.Save();
                     window.Close();
                     break;
                 case EnumGameStates.mainMenu:

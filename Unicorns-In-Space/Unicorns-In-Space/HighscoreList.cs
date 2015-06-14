@@ -10,7 +10,7 @@ namespace Unicorns_In_Space
     class HighscoreList
     {
         readonly string PATH = "HighscoreList.puis"; 
-        class Node : IComparable<Node>
+        public class Node : IComparable<Node>
         {
             Int64 value;
             string name;
@@ -23,7 +23,7 @@ namespace Unicorns_In_Space
 
             public int CompareTo(Node other)
             {
-                return (int)(value - other.value);
+                return (int)(other.value - value);
             }
 
             public override string ToString()
@@ -56,6 +56,8 @@ namespace Unicorns_In_Space
 
                 Node item = new Node(Convert.ToInt64(node.Split(' ')[0]), node.Split(' ')[1]);
                 Scores.Add(item);
+
+                r.Close();
             }
         }
 
@@ -65,7 +67,7 @@ namespace Unicorns_In_Space
             Scores.Sort();
 
             if (Scores.Count > 10)
-                Scores.RemoveRange(10, Scores.Count - 10);
+                Scores.RemoveAt(10);
         }
 
         public void Save()
@@ -74,12 +76,10 @@ namespace Unicorns_In_Space
             {
                 foreach (Node n in Scores)
                     w.WriteLine(n.ToString());
-            }
-        }
 
-        ~HighscoreList()
-        {
-            Save();
+                w.Flush();
+                w.Close();
+            }
         }
     }
 }
