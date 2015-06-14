@@ -117,7 +117,7 @@ namespace Unicorns_In_Space
 
             if (EnemyHandler.enemyList.Count < help)
                 for (int i = 0; i < help; ++i)
-                    enemyHandler.Add(new Enemy(new Vec2(Game.WindowWidth + 5, (float)r.NextDouble() * (Game.WindowHeight - 55))));
+                    enemyHandler.Add(new Enemy(new Vec2(Game.WindowWidth + r.Next(300), (float)r.NextDouble() * (Game.WindowHeight - 55))));
 
             if(playerTwo != null)
             {
@@ -125,7 +125,7 @@ namespace Unicorns_In_Space
                 {
                     Player.highScoreStatic1 = playerOne.HighScore;
                     Player.highScoreStatic2 = playerTwo.HighScore;
-                    Game.Highscores.Add(Math.Max(playerOne.HighScore, playerTwo.HighScore), "NAME");
+                    Game.Highscores.Add(Math.Max(playerOne.HighScore, playerTwo.HighScore), (playerOne.HighScore>=playerTwo.HighScore)?("Player1"):("Player2"));
                     return EnumGameStates.gameOver;
                 }
             }
@@ -134,7 +134,7 @@ namespace Unicorns_In_Space
                 if (!playerOne.IsAlive)
                 {
                     Player.highScoreStatic1 = playerOne.HighScore;
-                    Game.Highscores.Add(playerOne.HighScore, "NAME");
+                    Game.Highscores.Add(playerOne.HighScore, "Player1");
                     return EnumGameStates.gameOver;
                 }
             }
@@ -167,9 +167,21 @@ namespace Unicorns_In_Space
             renderTexture.Display();
             window.Draw(Background, fade);
 
-            window.Draw(playerOne.Sprite);
+            if (playerOne.hasToFlash)
+                window.Draw(playerOne.Sprite, flashState);
+            else
+                window.Draw(playerOne.Sprite);
+
+
             if (playerTwo != null)
-                window.Draw(playerTwo.Sprite);
+            {
+                if (playerTwo.hasToFlash)
+                    window.Draw(playerTwo.Sprite, flashState);
+                else
+                    window.Draw(playerTwo.Sprite);
+            }
+
+
             projectileHandler.Draw(window);
             enemyHandler.Draw(window);
             window.Draw(HighscorePlayer1);

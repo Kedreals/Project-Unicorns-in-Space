@@ -20,6 +20,8 @@ namespace Unicorns_In_Space
         public bool buttonPressed = true;
         long i;
 
+        public bool hasToFlash { get { return specialShootTimer.IsRunning; } }
+
         public bool sinus = false;
         public bool cosinus = false;
         bool shootMoveSwitchPressed = true;
@@ -37,9 +39,9 @@ namespace Unicorns_In_Space
 
         public void SpecialShoot()
         {
-            int epsilon = 900;
+            int epsilon = 50;
             i = HighScore % 1000;
-            if (HighScore < epsilon && (i >= 1000-epsilon || i <= epsilon))
+            if (HighScore > epsilon && (i >= 1000-epsilon || i <= epsilon))
             {
                 specialShootTimer.Start();
             }
@@ -154,11 +156,6 @@ namespace Unicorns_In_Space
             }
 
             base.Update(gameTime);
-        }
-
-        public override void Draw(RenderWindow window)
-        {
-            base.Draw(window);
         }
     }
 }
