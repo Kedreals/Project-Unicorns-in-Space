@@ -54,9 +54,9 @@ namespace Unicorns_In_Space
                 {
                     v = 0;
                 }
+
+                direction = new Vec2(direction.X, 2 * v);
             }
-            direction = new Vec2(direction.X, 2 * v);
-            
 
             Position += direction.GetNormalized() * gameTime.EllapsedTime.Milliseconds;
 

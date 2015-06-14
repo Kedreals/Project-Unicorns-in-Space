@@ -38,7 +38,7 @@ namespace Unicorns_In_Space
         public void SpecialShoot()
         {
             i = HighScore % 1000;
-            if (HighScore > 0 && (i >= 900 && i <= 100))
+            if (HighScore > 0 && (i <= 900 && i >= 100))
             {
                 specialShootTimer.Start();
             }
