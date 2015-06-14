@@ -13,11 +13,13 @@ namespace Unicorns_In_Space
         protected RenderWindow window;
         GameTime gameTime;
 
+        public static HighscoreList Highscores { get; protected set; }
+
         public AbstractGame(uint width, uint heigth, string titel)
         {
             window = new RenderWindow(new VideoMode(width, heigth), titel);
             window.Position = new Vector2i(-8, 0);
-            window.Closed += (sender, eventargs) => { ((RenderWindow)sender).Close(); };
+            window.Closed += (sender, eventargs) => { Highscores.Save(); ((RenderWindow)sender).Close(); };
 
             gameTime = new GameTime();
         }

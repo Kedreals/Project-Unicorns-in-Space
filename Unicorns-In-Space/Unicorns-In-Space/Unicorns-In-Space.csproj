@@ -63,6 +63,7 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\Player.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\Enemy.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\EnemyHandler.cs" />
+    <Compile Include="HighscoreList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Classes\GameObjectFolder\ProjectileFolder\Projectile.cs" />
     <Compile Include="Classes\GameObjectFolder\ProjectileFolder\ProjectileHandler.cs" />

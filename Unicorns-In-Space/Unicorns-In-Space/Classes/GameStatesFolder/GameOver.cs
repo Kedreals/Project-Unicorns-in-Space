@@ -35,6 +35,9 @@ namespace Unicorns_In_Space
         Text HighscorePlayer1;
         Text HighscorePlayer2;
 
+        Text HIGHSCOREFlashy;
+        Text highscore;
+
         bool newPointsSet = true;
 
         public void Initialize()
@@ -74,6 +77,12 @@ namespace Unicorns_In_Space
             HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
             HighscorePlayer2.Color = Color.Magenta;
             HighscorePlayer2.Position = (Vec2)HighscorePlayer1.Position + new Vec2(HighscoreTexture.Size.X *4/6, 0);
+
+            HIGHSCOREFlashy = new Text("HIGHSCORE", new Font("Font/arial_narrow_7.ttf"), 50);
+            HIGHSCOREFlashy.Position = new Vec2(100, 100);
+
+            highscore = new Text(Game.Highscores.ToString(), new Font("Font/arial_narrow_7.ttf"), 20);
+            highscore.Position = (Vec2)HIGHSCOREFlashy.Position + new Vec2(0, 50);
         }
         
         public EnumGameStates Update(GameTime gameTime)
@@ -128,6 +137,9 @@ namespace Unicorns_In_Space
             window.Draw(FlashyTitel, flashState);
             window.Draw(GameOverSprite, flashState);
             window.Draw(Highscore, flashState);
+
+            window.Draw(HIGHSCOREFlashy, flashState);
+            window.Draw(highscore);
 
             window.Draw(HighscorePlayer1);
             if (InGame.PlayerNumbers > 1)

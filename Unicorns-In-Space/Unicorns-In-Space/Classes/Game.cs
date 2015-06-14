@@ -11,13 +11,13 @@ namespace Unicorns_In_Space
     {
         public static uint WindowWidth = 1920;
         public static uint WindowHeight = 1000;
-        
+
         EnumGameStates currentGameState = EnumGameStates.mainMenu;
         EnumGameStates prevGameState;
 
         GameStates gameState;
 
-        public Game() : base(WindowWidth, WindowHeight, "Project: Unicorns in Space") { }
+        public Game() : base(WindowWidth, WindowHeight, "Project: Unicorns in Space") { Highscores = new HighscoreList(); }
 
         public override void Draw(RenderWindow win)
         {
@@ -38,6 +38,7 @@ namespace Unicorns_In_Space
             switch(currentGameState)
             {
                 case EnumGameStates.none:
+                    Highscores.Save();
                     window.Close();
                     break;
                 case EnumGameStates.mainMenu:

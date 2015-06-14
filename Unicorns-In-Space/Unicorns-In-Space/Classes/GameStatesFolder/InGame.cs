@@ -61,10 +61,10 @@ namespace Unicorns_In_Space
             point.FillColor = Color.White;
 
             HighscorePlayer1 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
-            HighscorePlayer1.Color = Color.Cyan;
+            HighscorePlayer1.Color = Color.Magenta;
             HighscorePlayer1.Position = new Vec2(10, 10);
             HighscorePlayer2 = new Text("", new Font("Font/arial_narrow_7.ttf"), 20);
-            HighscorePlayer2.Color = Color.Magenta;
+            HighscorePlayer2.Color = Color.Cyan;
             HighscorePlayer2.Position = (Vec2)HighscorePlayer1.Position + new Vec2(0, 25);
         }
 
@@ -86,6 +86,8 @@ namespace Unicorns_In_Space
 
         public EnumGameStates Update(GameTime gameTime)
         {
+            flashShader.SetParameter("time", (float)gameTime.TotalTime.TotalSeconds * 5f);
+
             if (resetGameTime)
             {
                 gameTime.Restart();
@@ -123,6 +125,7 @@ namespace Unicorns_In_Space
                 {
                     Player.highScoreStatic1 = playerOne.HighScore;
                     Player.highScoreStatic2 = playerTwo.HighScore;
+                    Game.Highscores.Add(Math.Max(playerOne.HighScore, playerTwo.HighScore), "NAME");
                     return EnumGameStates.gameOver;
                 }
             }
@@ -131,6 +134,7 @@ namespace Unicorns_In_Space
                 if (!playerOne.IsAlive)
                 {
                     Player.highScoreStatic1 = playerOne.HighScore;
+                    Game.Highscores.Add(playerOne.HighScore, "NAME");
                     return EnumGameStates.gameOver;
                 }
             }
@@ -163,7 +167,7 @@ namespace Unicorns_In_Space
             renderTexture.Display();
             window.Draw(Background, fade);
 
-            playerOne.Draw(window);
+            window.Draw(playerOne.Sprite);
             if (playerTwo != null)
                 window.Draw(playerTwo.Sprite);
             projectileHandler.Draw(window);

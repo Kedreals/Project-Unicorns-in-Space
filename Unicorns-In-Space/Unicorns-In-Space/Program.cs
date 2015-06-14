@@ -12,7 +12,16 @@ namespace Unicorns_In_Space
         {
             Console.WriteLine("Fucking awesome game of doom is starting right NOW ");
             Game game = new Game();
-            game.Run();
+            while (true)
+                try
+                {
+                    game.Run();
+                    break;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
         }
     }
 }
