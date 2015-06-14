@@ -37,9 +37,9 @@ namespace Unicorns_In_Space
 
         public void SpecialShoot()
         {
-            int epsilon = 50;
+            int epsilon = 900;
             i = HighScore % 1000;
-            if (HighScore > epsilon && (i >= 1000-epsilon || i <= epsilon))
+            if (HighScore < epsilon && (i >= 1000-epsilon || i <= epsilon))
             {
                 specialShootTimer.Start();
             }
