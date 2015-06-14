@@ -27,16 +27,16 @@ namespace Unicorns_In_Space
             switch (rando)
             {
                 case 0:
-                    r = (d) => { return (float)Math.Sin(d); };
+                    r = (d) => { return (float)Math.Sin(d * MovementSpeed); };
                     break;
                 case 1:
-                    r = (d) => { return (float)Math.Cos(d); };
+                    r = (d) => { return (float)Math.Cos(d * MovementSpeed); };
                     break;
                 case 2:
-                    r = (d) => { return -(float)Math.Cos(d); };
+                    r = (d) => { return -(float)Math.Cos(d * MovementSpeed); };
                     break;
                 case 3:
-                    r = (d) => { return -(float)Math.Sin(d); };
+                    r = (d) => { return -(float)Math.Sin(d * MovementSpeed); };
                     break;
                 default:
                     r = (d) => { return 0.0f; };
@@ -61,7 +61,7 @@ namespace Unicorns_In_Space
 
         public void RandomMovement()
         {
-            Movement = new Vec2(-1, r(stop.Elapsed.Seconds + 60*(stop.Elapsed.Minutes + 60*stop.Elapsed.Hours)));
+            Movement = new Vec2(-1, r((float)stop.Elapsed.Milliseconds / 1000f + (float)stop.Elapsed.Seconds + 60f*(float)(stop.Elapsed.Minutes + 60*stop.Elapsed.Hours)));
         }
 
         public override void Update(GameTime gameTime)

@@ -52,12 +52,12 @@ namespace Unicorns_In_Space
             Scores = new List<Node>();
             using (StreamReader r = new StreamReader(PATH))
             {
-                string node = r.ReadLine();
-
-                Node item = new Node(Convert.ToInt64(node.Split(' ')[0]), node.Split(' ')[1]);
-                Scores.Add(item);
-
-                r.Close();
+                while (!r.EndOfStream)
+                {
+                    string node = r.ReadLine();
+                    Node item = new Node(Convert.ToInt64(node.Split(' ')[0]), node.Split(' ')[1]);
+                    Scores.Add(item);
+                }
             }
         }
 
@@ -76,10 +76,15 @@ namespace Unicorns_In_Space
             {
                 foreach (Node n in Scores)
                     w.WriteLine(n.ToString());
-
-                w.Flush();
-                w.Close();
             }
+        }
+
+        public override string ToString()
+        {
+            string res = "";
+            foreach (Node n in Scores)
+                res += n.ToString() + "\n";
+            return res;
         }
     }
 }
