@@ -12,12 +12,18 @@ namespace Unicorns_In_Space
     class Player : GameObject
     {
         public Int64 HighScore = 0;
-        Stopwatch specialShoot;
+        Stopwatch specialShootTimer;
         Stopwatch notMoving;
         public static long highScoreStatic1;
         public static long highScoreStatic2;
         private uint joyStickNumber;
         public bool buttonPressed = true;
+        long i;
+
+        bool sinus = false;
+        bool cosinus = false;
+        bool shootMoveSwitchPressed = true;
+        float v;
 
         public Player(Vec2 spawnPos, uint _joyStickNumber) : base(spawnPos) {
             MovementSpeed = 4f;
@@ -26,34 +32,69 @@ namespace Unicorns_In_Space
             Sprite.Position = spawnPos;
             HitBox = new HitBox(spawnPos, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
             joyStickNumber = _joyStickNumber;
-            specialShoot = new Stopwatch();
+            specialShootTimer = new Stopwatch();
             notMoving = new Stopwatch();
         }
 
-        public void ShootMuni()
+        public void SpecialShoot()
         {
-            if (HighScore > 0 && HighScore % 1000 == 0)
+            i = HighScore % 1000;
+            if (HighScore > 0 && (i >= 900 && i <= 100))
             {
-                specialShoot.Start();
+                specialShootTimer.Start();
             }
 
-            if (specialShoot.Elapsed.Seconds > 5)
-                specialShoot.Reset();
+            if (specialShootTimer.Elapsed.Seconds > 5)
+                specialShootTimer.Reset();
+        }
+
+        public void ShootMovment(GameTime gameTime)
+        {
+            if (Joystick.IsButtonPressed(joyStickNumber, 2) && !shootMoveSwitchPressed) //X Button Sinus
+            {
+                Console.WriteLine("X SIN");
+                shootMoveSwitchPressed = true;
+                sinus = !sinus;
+                cosinus = false;
+            }
+
+            else if (Joystick.IsButtonPressed(joyStickNumber, 3) && !shootMoveSwitchPressed) //Y Button
+            {
+                Console.WriteLine("Y COS");
+                shootMoveSwitchPressed = true;
+                sinus = false;
+                cosinus = !cosinus;
+            }
+
+            if (sinus)
+            {
+                v = (float)Math.Sin(gameTime.TotalTime.Seconds);
+            }
+
+                else if(cosinus)
+            {
+                v = (float)Math.Cos(gameTime.TotalTime.Seconds);
+            }
+            
+            else if(!Joystick.IsButtonPressed(joyStickNumber, 1) && !Joystick.IsButtonPressed(joyStickNumber, 2))
+            {
+                shootMoveSwitchPressed = false;
+            }
         }
 
         public void Shoot()
         {
-            ShootMuni();
+            SpecialShoot();
             
-            if(specialShoot.IsRunning)
+            if(specialShootTimer.IsRunning)
             {
                 ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 1)));
                 ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, -1)));
-            }           
-            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, 0)));
+            }
+            ProjectileHandler.projectileList.Add(new Projectile(new Vec2(Sprite.Position.X + Sprite.Texture.Size.X + 10, Sprite.Position.Y + Sprite.Texture.Size.Y / 2), this, new Vec2(1, v)));
         }
 
-        public void Control()
+        public void Control(GameTime gameTime)
         {
             float epsylon = 15;
            
@@ -82,7 +123,7 @@ namespace Unicorns_In_Space
             }
 
             if (notMoving.Elapsed.Seconds > 2)
-                HighScore--;
+                HighScore -= gameTime.TotalTime.Seconds/ gameTime.TotalTime.Seconds;
 
             if (move != Vec2.ZERO)
             {
@@ -99,7 +140,8 @@ namespace Unicorns_In_Space
             {
                 if (HitBox.Collide(enemy.HitBox))
                 {
-                    HighScore = (HighScore * 9) / 10;
+                    if(InGame.PlayerNumbers > 1)
+                        HighScore = (HighScore * 9) / 10;
                     IsAlive = false;
                 }
             }
@@ -107,9 +149,10 @@ namespace Unicorns_In_Space
 
         public override void Update(GameTime gameTime) 
         {
-            Control();
+            Control(gameTime);
             Move(Movement * gameTime.EllapsedTime.Milliseconds);
             CollisionWithEnemy();
+            ShootMovment(gameTime);
 
             if (Joystick.IsButtonPressed(joyStickNumber, 0) && !buttonPressed) //button A
             {
